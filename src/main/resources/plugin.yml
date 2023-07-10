@@ -1,0 +1,62 @@
+name: RPAFractions
+version: '${project.version}'
+main: org.spgerg.rpa.fractions.Main
+api-version: 1.16
+authors: [ SpGerg ]
+
+permissions:
+  rpa.fractions.*:
+    description: "Все права"
+  rpa.fractions.add:
+    description: "Добавить должность в фракцию"
+  rpa.fractions.create:
+    description: "Создать фракцию"
+  rpa.fractions.invite:
+    description: "Пригласить игрока в фракцию"
+  rpa.fractions.police.arrest:
+    description: "Арестовать игрока"
+  rpa.fractions.police.cuffs:
+    description: "Заковывать в наручники"
+  rpa.fractions.police.wanted:
+    description: "Добавить розыск"
+
+
+commands:
+  fractions:
+    usage: /<command> <subcommand>
+    aliases:
+      - f
+    description: "Основная команда"
+  police:
+    usage: /<command> <subcommand>
+    aliases:
+      - pol
+      - p
+    description: "Команда для полиции"
+  leader:
+    usage: /<command> <message>
+    aliases:
+      - l
+    description: "Чат для лидеров"
+  radio:
+    usage: /<command> <message>
+    aliases:
+      - r
+    description: "Рация фракции"
+  radio-nrp:
+    usage: /<command> <message>
+    aliases:
+      - rn
+    description: "Нон-рп рация фракции"
+  nrp:
+    usage: /<command> <message>
+    description: "Нон-рп чат"
+  whisper:
+    usage: /<command> <message>
+    aliases:
+      - w
+    description: "Шептать"
+  shout:
+    usage: /<command> <message>
+    description: "Кричать"
+

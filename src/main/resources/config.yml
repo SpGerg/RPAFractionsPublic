@@ -1,0 +1,15 @@
+arrest_region_name: "Имя региона для ареста"
+jail_region_name: "Имя региона тюрьмы"
+arrest_position:
+  - 0
+  - 0
+  - 0
+arrest_leave_position:
+  - 5
+  - 0
+  - 5
+
+one_star_arrest_time: 10
+
+search_items:
+  - DIAMOND_BLOCK
