@@ -6,14 +6,8 @@ import org.spgerg.rpa.fractions.Main;
 import org.spgerg.rpa.fractions.commands.subcommands.Subcommand;
 
 public class Wanted extends Subcommand {
-    @Override
-    public String getName() {
-        return "wanted";
-    }
-
-    @Override
-    public String getPermission() {
-        return "rpa.fractions.police.wanted";
+    public Wanted() {
+        super("wanted", "rpa.fractions.police.wanted");
     }
 
     @Override

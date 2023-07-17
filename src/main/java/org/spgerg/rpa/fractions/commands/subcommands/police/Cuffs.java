@@ -1,21 +1,14 @@
 package org.spgerg.rpa.fractions.commands.subcommands.police;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.spgerg.rpa.fractions.PlayerUtils;
-import org.spgerg.rpa.fractions.Utils;
+import org.spgerg.rpa.fractions.utils.PlayerArrestUtils;
+import org.spgerg.rpa.fractions.utils.Utils;
 import org.spgerg.rpa.fractions.commands.subcommands.Subcommand;
 
 public class Cuffs extends Subcommand {
-    @Override
-    public String getName() {
-        return "cuffs";
-    }
-
-    @Override
-    public String getPermission() {
-        return "rpa.fractions.police.cuffs";
+    public Cuffs() {
+        super("cuffs", "rpa.fractions.police.cuffs");
     }
 
     @Override
@@ -50,15 +43,15 @@ public class Cuffs extends Subcommand {
                 Utils.playerUtils.remove(player);
             }
             else {
-                Utils.playerUtils.replace(target, new PlayerUtils(player, null));
-                Utils.playerUtils.replace(player, new PlayerUtils(null, target));
+                Utils.playerUtils.replace(target, new PlayerArrestUtils(player, null));
+                Utils.playerUtils.replace(player, new PlayerArrestUtils(null, target));
             }
 
             return true;
         }
 
-        Utils.playerUtils.put(target, new PlayerUtils(player, null));
-        Utils.playerUtils.put(player, new PlayerUtils(null, target));
+        Utils.playerUtils.put(target, new PlayerArrestUtils(player, null));
+        Utils.playerUtils.put(player, new PlayerArrestUtils(null, target));
 
         return true;
     }

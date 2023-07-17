@@ -1,7 +1,6 @@
 package org.spgerg.rpa.fractions.commands.subcommands;
 
 import org.bukkit.entity.Player;
-import org.spgerg.rpa.fractions.Config;
 import org.spgerg.rpa.fractions.Main;
 import org.spgerg.rpa.fractions.model.serializable.FractionSerializable;
 
@@ -9,14 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Create extends Subcommand {
-    @Override
-    public String getName() {
-        return "create";
-    }
-
-    @Override
-    public String getPermission() {
-        return "rpa.fractons.create";
+    public Create() {
+        super("create", "rpa.fractons.create");
     }
 
     @Override

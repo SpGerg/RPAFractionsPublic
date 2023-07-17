@@ -12,8 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.spgerg.rpa.fractions.Main;
-import org.spgerg.rpa.fractions.PlayerUtils;
-import org.spgerg.rpa.fractions.Utils;
+import org.spgerg.rpa.fractions.utils.Utils;
 
 public class PlayerMove implements Listener {
 

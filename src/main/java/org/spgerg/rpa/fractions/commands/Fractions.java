@@ -25,12 +25,12 @@ public class Fractions implements CommandExecutor {
             player.sendMessage("Команды: ");
 
             for (Subcommand subcommand : Subcommand.fractionsSubcommands) {
-                player.sendMessage(subcommand.getName());
+                player.sendMessage(subcommand.name);
             }
         }
 
         for (Subcommand subcommand : Subcommand.fractionsSubcommands) {
-            if (subcommand.getName().equals(args[0])) return subcommand.execute(player, args);
+            if (subcommand.name.equals(args[0])) return subcommand.execute(player, args);
         }
 
         player.sendMessage("Команда не найдена");

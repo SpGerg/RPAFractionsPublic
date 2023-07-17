@@ -6,7 +6,7 @@ public class DeloSerializble {
 
     public final String reason;
 
-    public final Integer id;
+    public Integer id;
 
     public DeloSerializble(String uuid, String reason, Integer id) {
         this.uuid = uuid;

@@ -1,25 +1,15 @@
 package org.spgerg.rpa.fractions.commands.subcommands.police;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.spgerg.rpa.fractions.Main;
 import org.spgerg.rpa.fractions.commands.subcommands.Subcommand;
 
-import java.util.List;
-
 public class Search extends Subcommand {
 
-    @Override
-    public String getName() {
-        return "search";
-    }
-
-    @Override
-    public String getPermission() {
-        return "rpa.fractions.police.search";
+    public Search() {
+        super("search", "rpa.fractions.police.search");
     }
 
     @Override

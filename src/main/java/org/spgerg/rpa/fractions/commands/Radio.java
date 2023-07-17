@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.spgerg.rpa.fractions.Main;
-import org.spgerg.rpa.fractions.Utils;
+import org.spgerg.rpa.fractions.utils.Utils;
 import org.spgerg.rpa.fractions.model.serializable.FractionSerializable;
 
 public class Radio implements CommandExecutor {

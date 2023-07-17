@@ -28,6 +28,7 @@ public final class Main extends JavaPlugin {
 
         instance.getCommand("fractions").setExecutor(new Fractions());
         instance.getCommand("police").setExecutor(new Police());
+        instance.getCommand("smi").setExecutor(new Smi());
 
         instance.getCommand("leader").setExecutor(new Leader());
         instance.getCommand("radio").setExecutor(new Radio());

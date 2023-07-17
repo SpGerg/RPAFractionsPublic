@@ -8,18 +8,12 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.spgerg.rpa.fractions.Main;
-import org.spgerg.rpa.fractions.Utils;
+import org.spgerg.rpa.fractions.utils.Utils;
 import org.spgerg.rpa.fractions.model.serializable.FractionSerializable;
 
 public class Invite extends Subcommand {
-    @Override
-    public String getName() {
-        return "invite";
-    }
-
-    @Override
-    public String getPermission() {
-        return "rpa.fractions.invite";
+    public Invite() {
+        super("invite", "rpa.fractions.invite");
     }
 
     @Override

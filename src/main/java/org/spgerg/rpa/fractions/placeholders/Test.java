@@ -15,7 +15,7 @@ public class Test extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getIdentifier() {
-        return "test_rpa_placeholder";
+        return "rpa";
     }
 
     @Override
@@ -35,13 +35,9 @@ public class Test extends PlaceholderExpansion {
 
     @Override
     public String onRequest(OfflinePlayer player, String identifier) {
-        if (player == null || !player.isOnline()) {
-            identifier = "";
-
-            return identifier;
+        if (identifier.equals("test")) {
+            return "Если ты это читаешь, то плейсхолдер работает.";
         }
-
-        identifier = "Тут чёто написано ))))";
 
         return identifier;
     }

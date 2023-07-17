@@ -6,26 +6,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.material.Skull;
 import org.spgerg.rpa.fractions.Main;
-import org.spgerg.rpa.fractions.Utils;
+import org.spgerg.rpa.fractions.utils.Utils;
 import org.spgerg.rpa.fractions.commands.subcommands.Subcommand;
 import org.spgerg.rpa.fractions.model.serializable.DeloSerializble;
 import org.spgerg.rpa.fractions.model.serializable.PlayerSerializable;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Delo extends Subcommand {
-    @Override
-    public String getName() {
-        return "delo";
-    }
-
-    @Override
-    public String getPermission() {
-        return "rpa.fractions.police.delo";
+    public Delo() {
+        super("delo", "rpa.fractions.police.delo");
     }
 
     @Override

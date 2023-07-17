@@ -1,14 +1,11 @@
 package org.spgerg.rpa.fractions.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.spgerg.rpa.fractions.Main;
-import org.spgerg.rpa.fractions.Utils;
-import org.spgerg.rpa.fractions.model.serializable.FractionSerializable;
+import org.spgerg.rpa.fractions.utils.Utils;
 
 public class NonRp implements CommandExecutor {
 

@@ -1,16 +1,18 @@
-package org.spgerg.rpa.fractions;
+package org.spgerg.rpa.fractions.utils;
 
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.spgerg.rpa.fractions.Main;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Utils {
 
-    public static HashMap<Player, PlayerUtils> playerUtils = new HashMap<>();
+    public static HashMap<Player, PlayerArrestUtils> playerUtils = new HashMap<>();
+
+    public static List<PlayerAdsUtils> advertises = new ArrayList<>();
 
     public static String allArgs(int start , String[] args){
         StringBuilder temp = new StringBuilder();
@@ -45,8 +47,7 @@ public class Utils {
         }.runTaskTimer(Main.instance, 0, 10L);
     }
 
-
-    public static int getRows(int number) {
-        return number * 9;
+    public static Integer getRows(int rows) {
+        return rows * 9;
     }
 }

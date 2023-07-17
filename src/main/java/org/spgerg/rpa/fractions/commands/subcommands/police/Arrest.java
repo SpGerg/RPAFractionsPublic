@@ -9,20 +9,13 @@ import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.spgerg.rpa.fractions.Main;
-import org.spgerg.rpa.fractions.Utils;
+import org.spgerg.rpa.fractions.utils.Utils;
 import org.spgerg.rpa.fractions.commands.subcommands.Subcommand;
 
 public class Arrest extends Subcommand {
-    @Override
-    public String getName() {
-        return "arrest";
-    }
-
-    @Override
-    public String getPermission() {
-        return "rpa.fractions.police.arrest";
+    public Arrest() {
+        super("arrest", "rpa.fractions.police.arrest");
     }
 
     @Override

@@ -7,14 +7,8 @@ import org.spgerg.rpa.fractions.model.serializable.PostSerializable;
 import java.util.ArrayList;
 
 public class Add extends Subcommand {
-    @Override
-    public String getName() {
-        return "add";
-    }
-
-    @Override
-    public String getPermission() {
-        return "rpa.fractions.add";
+    public Add() {
+        super("add", "rpa.fractions.add");
     }
 
     @Override

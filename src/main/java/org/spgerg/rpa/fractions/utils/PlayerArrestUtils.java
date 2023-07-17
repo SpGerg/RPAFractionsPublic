@@ -1,15 +1,14 @@
-package org.spgerg.rpa.fractions;
+package org.spgerg.rpa.fractions.utils;
 
 import org.bukkit.entity.Player;
 
-public class PlayerUtils {
-
+public class PlayerArrestUtils {
     public Player handCuffsTarget;
 
     public Player toFollow;
 
 
-    public PlayerUtils(Player toFollow, Player handCuffsTarget) {
+    public PlayerArrestUtils(Player toFollow, Player handCuffsTarget) {
         this.toFollow = toFollow;
         this.handCuffsTarget = handCuffsTarget;
     }

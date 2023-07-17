@@ -6,15 +6,10 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.spgerg.rpa.fractions.model.FractionsModel;
 import org.spgerg.rpa.fractions.model.PlayersModel;
-import org.spgerg.rpa.fractions.model.serializable.DeloSerializble;
-import org.spgerg.rpa.fractions.model.serializable.FractionSerializable;
-import org.spgerg.rpa.fractions.model.serializable.PlayerSerializable;
-import org.spgerg.rpa.fractions.model.serializable.PostSerializable;
+import org.spgerg.rpa.fractions.model.serializable.*;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -86,6 +81,12 @@ public class Config {
 
         PlayerSerializable playerSerializable = players.get(uuid);
         playerSerializable.delos.remove(id);
+
+        for (DeloSerializble delo : playerSerializable.delos) {
+            if (delo.id > id) {
+                delo.id -= 1;
+            }
+        }
 
         players.replace(uuid, playerSerializable);
 
@@ -190,7 +191,7 @@ public class Config {
         PlayersModel model = new PlayersModel();
         model.setPlayers(players);
 
-        try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(playersFile), "Windows-1251"))) {
+        try(Writer writer = new BufferedWriter(new OutputStreamWriter(Files.newOutputStream(playersFile.toPath()), "Windows-1251"))) {
             gson.toJson(model, writer);
 
             writer.flush();
@@ -204,7 +205,7 @@ public class Config {
         FractionsModel model = new FractionsModel();
         model.setFractions(players);
 
-        try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fractionsFile), "Windows-1251"))) {
+        try(Writer writer = new BufferedWriter(new OutputStreamWriter(Files.newOutputStream(fractionsFile.toPath()), "Windows-1251"))) {
             gson.toJson(model, writer);
 
             writer.flush();

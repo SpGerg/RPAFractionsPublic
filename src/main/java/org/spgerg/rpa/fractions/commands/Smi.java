@@ -5,12 +5,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.spgerg.rpa.fractions.Main;
 import org.spgerg.rpa.fractions.commands.subcommands.Subcommand;
 
-public class Police implements CommandExecutor {
+public class Smi implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof ConsoleCommandSender) {
             Main.instance.getLogger().info("В консоли нельзя.");
 
@@ -22,12 +23,12 @@ public class Police implements CommandExecutor {
         if (args.length == 0) {
             player.sendMessage("Команды: ");
 
-            for (Subcommand subcommand : Subcommand.policeSubcommands) {
+            for (Subcommand subcommand : Subcommand.smiSubcommands) {
                 player.sendMessage(subcommand.name);
             }
         }
 
-        for (Subcommand subcommand : Subcommand.policeSubcommands) {
+        for (Subcommand subcommand : Subcommand.smiSubcommands) {
             if (subcommand.name.equals(args[0])) return subcommand.execute(player, args);
         }
 
