@@ -15,6 +15,10 @@ public class PlayerSerializable {
 
     public Integer wanted;
 
+    public String educate;
+
+    public Boolean isArmy;
+
     public List<DeloSerializble> delos;
 
     public PlayerSerializable(String name, String fraction, String post) {
@@ -22,6 +26,8 @@ public class PlayerSerializable {
         this.fraction = fraction;
         this.post = post;
 
+        isArmy = false;
+        educate = "";
         wanted = 0;
         arrestTime = 0;
         delos = new ArrayList<>();

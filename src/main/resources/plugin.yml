@@ -39,6 +39,15 @@ commands:
       - pol
       - p
     description: "Команда для СМИ"
+  school:
+    usage: /<command> <subcommand>
+    aliases:
+      - sc
+    description: "Команда для школы"
+  criminal:
+    usage: /<command> <subcommand>
+    aliases:
+      - cr
   leader:
     usage: /<command> <message>
     aliases:

@@ -14,13 +14,16 @@ public class FractionSerializable {
 
     public final List<PlayerSerializable> members;
 
+    public final List<String> permissions;
+
     public final Map<String, PostSerializable> posts;
 
-    public FractionSerializable(String name, String leader, String defaultPost, ArrayList<PlayerSerializable> members, Map<String, PostSerializable> posts) {
+    public FractionSerializable(String name, String leader, String defaultPost, ArrayList<PlayerSerializable> members, List<String> permissions, Map<String, PostSerializable> posts) {
         this.name = name;
         this.leader = leader;
         this.default_post = defaultPost;
         this.members = members;
+        this.permissions = permissions;
         this.posts = posts;
     }
 }

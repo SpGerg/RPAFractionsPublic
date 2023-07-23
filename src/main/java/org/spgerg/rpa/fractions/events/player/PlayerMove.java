@@ -32,22 +32,13 @@ public class PlayerMove implements Listener {
             }
         }
 
-        if (Main.config.getArrestTime(player) > 0 && !isInRegion(player, Main.config.jail_region_name)) {
-            player.teleport(new Location(player.getWorld(),
-                    Main.config.arrest_position.get(0),
-                    Main.config.arrest_position.get(1),
-                    Main.config.arrest_position.get(2)));
+        if (Main.config.getArrestTime(player) > 0 && !Utils.isPlayerInRegion(player, Main.config.jail_region_name)) {
+            player.teleport(Utils.listToLocation(player.getWorld(), Main.config.arrest_position));
 
             player.sendMessage("Вы арестованы!");
         }
     }
 
-    public static boolean isInRegion(Player p, String region) {
-        RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
-        RegionQuery query = container.createQuery();
-        ApplicableRegionSet set = query.getApplicableRegions(BukkitAdapter.adapt(p.getLocation()));
-        for (ProtectedRegion pr : set) if (pr.getId().equalsIgnoreCase(region)) return true;
-        return false;
-    }
+
 
 }

@@ -38,34 +38,19 @@ public class Arrest extends Subcommand {
             return true;
         }
 
-        Location loc = BukkitAdapter.adapt(player.getLocation());
-        RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
-        RegionQuery query = container.createQuery();
-        ApplicableRegionSet set = query.getApplicableRegions(loc);
+        if (Utils.isPlayerInRegion(player, Main.config.arrest_region_name)) {
+            target.teleport(Utils.listToLocation(target.getWorld(), Main.config.arrest_position));
 
-        for (ProtectedRegion region : set) {
-            if (region.getId().equals(Main.config.arrest_region_name)) {
-                target.teleport(Utils.listToLocation(target.getWorld(), Main.config.arrest_position));
+            Main.config.setArrestTime(target, Main.config.one_star_arrest_time * Main.config.getPlayers().get(target.getUniqueId().toString()).wanted);
 
-                if (Main.config.one_star_arrest_time == 0) {
-                    player.sendMessage("Игрок не в розыске!");
+            Utils.playerArrestRunnable(target);
 
-                    return true;
-                }
-
-                Main.config.setArrestTime(target, Main.config.one_star_arrest_time * Main.config.getPlayers().get(target.getUniqueId().toString()).wanted);
-
-                Utils.playerArrestRunnable(target);
-
-                return true;
-            }
-            else {
-                player.sendMessage("Вы должны находиться в специальном регионе!");
-
-                return true;
-            }
+            return true;
         }
+        else {
+            player.sendMessage("Вы должны находиться в специальном регионе!");
 
-        return true;
+            return true;
+        }
     }
 }

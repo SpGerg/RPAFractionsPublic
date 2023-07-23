@@ -3,13 +3,14 @@ package org.spgerg.rpa.fractions;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.spgerg.rpa.fractions.commands.*;
 import org.spgerg.rpa.fractions.events.inventory.InventoryClick;
+import org.spgerg.rpa.fractions.events.player.PlayerChat;
 import org.spgerg.rpa.fractions.events.player.PlayerJoin;
 import org.spgerg.rpa.fractions.events.player.PlayerMove;
-import org.spgerg.rpa.fractions.placeholders.Test;
 
 public final class Main extends JavaPlugin {
 
@@ -29,6 +30,7 @@ public final class Main extends JavaPlugin {
         instance.getCommand("fractions").setExecutor(new Fractions());
         instance.getCommand("police").setExecutor(new Police());
         instance.getCommand("smi").setExecutor(new Smi());
+        instance.getCommand("criminal").setExecutor(new Criminal());
 
         instance.getCommand("leader").setExecutor(new Leader());
         instance.getCommand("radio").setExecutor(new Radio());
@@ -36,9 +38,11 @@ public final class Main extends JavaPlugin {
         instance.getCommand("nrp").setExecutor(new NonRp());
         instance.getCommand("whisper").setExecutor(new Whisper());
         instance.getCommand("shout").setExecutor(new Shout());
+        instance.getCommand("school").setExecutor(new School());
 
         instance.getServer().getPluginManager().registerEvents(new PlayerMove(), this);
         instance.getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+        instance.getServer().getPluginManager().registerEvents(new PlayerChat(), this);
         instance.getServer().getPluginManager().registerEvents(new InventoryClick(), this);
 
         saveDefaultConfig();
@@ -56,8 +60,7 @@ public final class Main extends JavaPlugin {
 
     private void setupPlaceholders() {
         if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
-            //Registering placeholder will be use here
-            new Test(this).register();
+            new Placeholders().register();
         }
     }
 

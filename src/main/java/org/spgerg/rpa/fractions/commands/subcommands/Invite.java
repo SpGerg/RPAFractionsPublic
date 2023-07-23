@@ -41,7 +41,7 @@ public class Invite extends Subcommand {
         FractionSerializable fractionSerializable = Main.config.getPlayerFraction(player);
 
         if (fractionSerializable == null) {
-            player.sendMessage("Ты чё дурак что-ли?");
+            player.sendMessage("Вы не состоите в фракции.");
 
             return true;
         }

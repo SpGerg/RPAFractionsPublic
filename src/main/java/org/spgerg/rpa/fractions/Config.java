@@ -27,6 +27,10 @@ public class Config {
 
     public final String jail_region_name;
 
+    public final String radio_region_name;
+
+    public final String raid_region_name;
+
     public final List<Integer> arrest_position;
 
     public final List<Integer> arrest_leave_position;
@@ -34,6 +38,8 @@ public class Config {
     public final int one_star_arrest_time;
 
     public final List<String> search_items;
+
+    public final String raid_reward;
 
     private Gson gson;
 
@@ -56,10 +62,52 @@ public class Config {
 
         arrest_region_name = configYaml.getString("arrest_region_name");
         jail_region_name = configYaml.getString("jail_region_name");
+        radio_region_name = configYaml.getString("radio_region_name");
+        raid_region_name = configYaml.getString("raid_region_name");
         arrest_position = (List<Integer>) configYaml.getList("arrest_position");
         arrest_leave_position = (List<Integer>) configYaml.getList("arrest_leave_position");
         one_star_arrest_time = configYaml.getInt("one_star_arrest_time");
         search_items = (List<String>) configYaml.getList("search_items");
+        raid_reward = configYaml.getString("raid_reward");
+    }
+
+    public void resetPlayer(Player player) {
+        Map<String, PlayerSerializable> players = getPlayers();
+
+        String uuid = player.getUniqueId().toString();
+
+        players.get(uuid).fraction = "";
+        players.get(uuid).post = "";
+        Main.econ.withdrawPlayer(player, (Main.econ.getBalance(player) + 500) - Main.econ.getBalance(player));
+
+        savePlayersMap(players);
+    }
+
+    public void setEducate(Player player, String educate) {
+        Map<String, PlayerSerializable> players = getPlayers();
+
+        String uuid = player.getUniqueId().toString();
+
+        players.get(uuid).educate = educate;
+
+        savePlayersMap(players);
+    }
+
+    public void setPost(Player player, String post) {
+        Map<String, PlayerSerializable> players = getPlayers();
+        Map<String, FractionSerializable> fractions = getFractions();
+
+        String uuid = player.getUniqueId().toString();
+
+        PlayerSerializable playerSerializable = players.get(uuid);
+
+        if (playerSerializable.fraction.equals("")) return;
+
+        if (!fractions.get(playerSerializable.fraction).posts.containsKey(post)) return;
+
+        players.get(uuid).post = post;
+
+        savePlayersMap(players);
     }
 
     public void addDelo(Player player, DeloSerializble deloSerializble) {
@@ -165,14 +213,11 @@ public class Config {
 
     public void addMemberToFraction(Player player, String name) {
         Map<String, FractionSerializable> fractions = getFractions();
-
         Map<String, PlayerSerializable> players = getPlayers();
-
-        PlayerSerializable playerSerializable = null;
 
         String uuid = player.getUniqueId().toString();
 
-        playerSerializable = players.get(uuid);
+        PlayerSerializable playerSerializable = players.get(uuid);
         playerSerializable.fraction = name;
         playerSerializable.post = fractions.get(name).default_post;
 
@@ -182,6 +227,24 @@ public class Config {
         fractions.get(name).members.add(playerSerializable);
 
         players.replace(uuid, playerSerializable);
+
+        saveFractionsMap(fractions);
+        savePlayersMap(players);
+    }
+
+    public void removeMemberFromFraction(Player player) {
+        Map<String, FractionSerializable> fractions = getFractions();
+        Map<String, PlayerSerializable> players = getPlayers();
+
+        String uuid = player.getUniqueId().toString();
+
+        PlayerSerializable playerSerializable = players.get(uuid);
+
+        if (playerSerializable.fraction.equals("")) return;
+
+        fractions.get(playerSerializable.fraction).members.remove(playerSerializable);
+        players.get(uuid).fraction = "";
+        players.get(uuid).post = "";
 
         saveFractionsMap(fractions);
         savePlayersMap(players);

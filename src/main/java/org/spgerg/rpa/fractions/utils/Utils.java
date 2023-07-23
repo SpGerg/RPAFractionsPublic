@@ -1,8 +1,16 @@
 package org.spgerg.rpa.fractions.utils;
 
-import org.bukkit.Location;
-import org.bukkit.World;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import com.sk89q.worldguard.protection.regions.RegionContainer;
+import com.sk89q.worldguard.protection.regions.RegionQuery;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.spgerg.rpa.fractions.Main;
 
@@ -14,12 +22,51 @@ public class Utils {
 
     public static List<PlayerAdsUtils> advertises = new ArrayList<>();
 
+    public static void createInventoryWithAds(Player player, String title) {
+        Inventory inventory = Bukkit.createInventory(player, Utils.getRows(5), title);
+
+        for (PlayerAdsUtils ads : Utils.advertises) {
+            OfflinePlayer _player = Bukkit.getPlayer(UUID.fromString(ads.uuid));
+            ads.edited = player.getUniqueId().toString();
+
+            ItemStack head = new ItemStack(Material.PLAYER_HEAD);
+            SkullMeta skullMeta = (SkullMeta) head.getItemMeta();
+            skullMeta.setLore(Arrays.asList(ads.message));
+            skullMeta.setOwningPlayer(_player);
+            skullMeta.setDisplayName(String.valueOf(ads.id));
+            head.setItemMeta(skullMeta);
+            inventory.addItem(head);
+        }
+
+        player.openInventory(inventory);
+    }
+
     public static String allArgs(int start , String[] args){
         StringBuilder temp = new StringBuilder();
         for(int i = start ; i < args.length ; i++){
             temp.append(args[i]).append(" ");
         }
         return temp.toString().trim();
+    }
+
+    public static boolean isPlayerInRegion(Player p, String region) {
+        RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+        RegionQuery query = container.createQuery();
+        ApplicableRegionSet set = query.getApplicableRegions(BukkitAdapter.adapt(p.getLocation()));
+        for (ProtectedRegion pr : set) if (pr.getId().equalsIgnoreCase(region)) return true;
+        return false;
+    }
+
+    public static List<Player> getPlayersInRegion(String region) {
+        List<Player> result = new ArrayList<>();
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (isPlayerInRegion(player, region)) {
+                result.add(player);
+            }
+        }
+
+        return result;
     }
 
     public static Location listToLocation(World world, List<Integer> list) {

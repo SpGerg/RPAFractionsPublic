@@ -14,9 +14,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.spgerg.rpa.fractions.Conversations;
 import org.spgerg.rpa.fractions.Main;
+import org.spgerg.rpa.fractions.utils.PlayerAdsUtils;
 import org.spgerg.rpa.fractions.utils.Utils;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.IntStream;
 
@@ -25,6 +27,8 @@ public class InventoryClick implements Listener {
     @EventHandler
     private void onInventoryClick(InventoryClickEvent event) {
         Inventory inventory = event.getClickedInventory();
+
+        String title = event.getView().getTitle();
 
         if (inventory == null) return;
 
@@ -36,11 +40,9 @@ public class InventoryClick implements Listener {
 
         Player player = Bukkit.getPlayer(event.getWhoClicked().getName());
 
-        event.setCancelled(true);
-
         if (currentItem == null) return;
 
-        if (event.getView().getTitle().equals("Приглашение во фракцию")) {
+        if (title.equals("Приглашение во фракцию")) {
             if (currentItem.getType().equals(Material.RED_STAINED_GLASS)) {
                 return;
             }
@@ -48,8 +50,10 @@ public class InventoryClick implements Listener {
                 Main.config.addMemberToFraction(player, inventory.getItem(4).getItemMeta().getDisplayName());
             }
             player.closeInventory();
+
+            event.setCancelled(true);
         }
-        else if(event.getView().getTitle().equals("Обьявления")) {
+        else if (title.equals("Обьявления на изменение")) {
             OfflinePlayer owner = ((SkullMeta)currentItem.getItemMeta()).getOwningPlayer();
             String ownerUUID = owner.getUniqueId().toString();
 
@@ -62,13 +66,19 @@ public class InventoryClick implements Listener {
             conversation.getContext().setSessionData("id", currentItem.getItemMeta().getDisplayName());
 
             conversation.begin();
+
+            event.setCancelled(true);
         }
-        else if(event.getView().getTitle().equals("Обьявления на публикацию")) {
-            int index = 0;
+        else if (title.equals("Обьявления на публикацию")) {
+            int id = 0;
 
             for (int i = 0;i < Utils.advertises.size();i++) {
-                if (Utils.advertises.get(i).id.equals(Integer.parseInt(currentItem.getItemMeta().getDisplayName()))) {
-                    index = i;
+                PlayerAdsUtils ad = Utils.advertises.get(i);
+
+                if (ad.id.equals(Integer.valueOf(currentItem.getItemMeta().getDisplayName()))) {
+                    id = ad.id;
+
+                    Utils.advertises.remove(i);
                 }
             }
 
@@ -78,15 +88,66 @@ public class InventoryClick implements Listener {
 
             StringBuilder builder = new StringBuilder();
             builder.append("---------------------------\n");
-            builder.append("---: " + Utils.advertises.get(index).message + " :---\n");
+            builder.append("---: " + Utils.advertises.get(id).message + " :---\n");
             //builder.append("Отредактировано: " + edited.getName() + "\n");
             builder.append("Автор: " + owner.getName() + "\n");
             builder.append("---------------------------\n");
 
             Bukkit.getServer().broadcastMessage(builder.toString());
 
-            Utils.advertises.remove(index);
+            Utils.advertises.remove(id);
+
+            for (int i = 0;i < Utils.advertises.size();i++) {
+                if (id < Utils.advertises.get(i).id) {
+                    Utils.advertises.get(i).id -= 1;
+                }
+            }
+
+            event.getClickedInventory().remove(currentItem);
+
+            event.setCancelled(true);
+        }
+        else if (title.equals("Обьявления на отказ")) {
+            OfflinePlayer owner = ((SkullMeta)currentItem.getItemMeta()).getOwningPlayer();
+
+            event.getClickedInventory().remove(currentItem);
+
+            int id = 0;
+
+            for (int i = 0;i < Utils.advertises.size();i++) {
+                PlayerAdsUtils ad = Utils.advertises.get(i);
+
+                if (ad.id.equals(Integer.valueOf(currentItem.getItemMeta().getDisplayName()))) {
+                    id = ad.id;
+
+                    Utils.advertises.remove(i);
+                }
+            }
+
+            for (int i = 0;i < Utils.advertises.size();i++) {
+                if (id < Utils.advertises.get(i).id) {
+                    Utils.advertises.get(i).id -= 1;
+                }
+            }
+
+            event.setCancelled(true);
+        }
+        else if (title.equals("Меню управления обьявлений")) {
+            Material type = currentItem.getType();
+
+            player.closeInventory();
+
+            if (type.equals(Material.BLUE_STAINED_GLASS)) {
+                Utils.createInventoryWithAds(player, "Обьявления на изменение");
+            }
+            else if (type.equals(Material.GREEN_STAINED_GLASS)) {
+                Utils.createInventoryWithAds(player, "Обьявления на публикацию");
+            }
+            else if (type.equals(Material.RED_STAINED_GLASS)) {
+                Utils.createInventoryWithAds(player, "Обьявления на отказ");
+            }
+
+            event.setCancelled(true);
         }
     }
-
 }

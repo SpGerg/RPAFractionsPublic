@@ -27,7 +27,7 @@ public class Create extends Subcommand {
             return true;
         }
 
-        Main.config.createFraction(new FractionSerializable(args[1], "", "", new ArrayList<>(), new HashMap<>()));
+        Main.config.createFraction(new FractionSerializable(args[1], "", "", new ArrayList<>(), new ArrayList<>(), new HashMap<>()));
 
         return true;
     }

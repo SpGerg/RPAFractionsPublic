@@ -29,7 +29,7 @@ public class Smi implements CommandExecutor {
         }
 
         for (Subcommand subcommand : Subcommand.smiSubcommands) {
-            if (subcommand.name.equals(args[0])) return subcommand.execute(player, args);
+            if (subcommand.name.equals(args[0]) && player.hasPermission(subcommand.permission)) return subcommand.execute(player, args);
         }
 
         player.sendMessage("Команда не найдена");

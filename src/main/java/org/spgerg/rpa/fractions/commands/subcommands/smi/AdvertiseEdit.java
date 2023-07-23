@@ -22,20 +22,15 @@ public class AdvertiseEdit extends Subcommand {
 
     @Override
     public boolean execute(Player player, String[] args) {
-        Inventory inventory = Bukkit.createInventory(player, Utils.getRows(5), "Обьявления");
+        Inventory inventory = Bukkit.createInventory(player, Utils.getRows(1), "Меню управления обьявлений");
 
-        for (PlayerAdsUtils ads : Utils.advertises) {
-            OfflinePlayer _player = Bukkit.getPlayer(UUID.fromString(ads.uuid));
-            ads.edited = player.getUniqueId().toString();
+        ItemStack edit = new ItemStack(Material.BLUE_STAINED_GLASS);
+        ItemStack accept = new ItemStack(Material.GREEN_STAINED_GLASS);
+        ItemStack cancel = new ItemStack(Material.RED_STAINED_GLASS);
 
-            ItemStack head = new ItemStack(Material.PLAYER_HEAD);
-            SkullMeta skullMeta = (SkullMeta) head.getItemMeta();
-            skullMeta.setLore(Arrays.asList(ads.message));
-            skullMeta.setOwningPlayer(_player);
-            skullMeta.setDisplayName(String.valueOf(ads.id));
-            head.setItemMeta(skullMeta);
-            inventory.addItem(head);
-        }
+        inventory.setItem(0, edit);
+        inventory.setItem(4, accept);
+        inventory.setItem(8, cancel);
 
         player.openInventory(inventory);
 

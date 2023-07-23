@@ -1,5 +1,7 @@
 arrest_region_name: "Имя региона для ареста"
 jail_region_name: "Имя региона тюрьмы"
+radio_region_name: "Имя региона радио"
+raid_region_name: "Имя региона для рейда"
 arrest_position:
   - 0
   - 0
@@ -10,6 +12,8 @@ arrest_leave_position:
   - 5
 
 one_star_arrest_time: 10
+
+raid_reward: DIAMOND_BLOCK
 
 search_items:
   - DIAMOND_BLOCK

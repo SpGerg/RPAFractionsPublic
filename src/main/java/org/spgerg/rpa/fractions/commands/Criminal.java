@@ -8,7 +8,8 @@ import org.bukkit.entity.Player;
 import org.spgerg.rpa.fractions.Main;
 import org.spgerg.rpa.fractions.commands.subcommands.Subcommand;
 
-public class Police implements CommandExecutor {
+public class Criminal implements CommandExecutor {
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof ConsoleCommandSender) {
@@ -22,12 +23,12 @@ public class Police implements CommandExecutor {
         if (args.length == 0) {
             player.sendMessage("Команды: ");
 
-            for (Subcommand subcommand : Subcommand.policeSubcommands) {
+            for (Subcommand subcommand : Subcommand.criminalSubcommands) {
                 player.sendMessage(subcommand.name);
             }
         }
 
-        for (Subcommand subcommand : Subcommand.policeSubcommands) {
+        for (Subcommand subcommand : Subcommand.criminalSubcommands) {
             if (subcommand.name.equals(args[0]) && player.hasPermission(subcommand.permission)) return subcommand.execute(player, args);
         }
 
@@ -35,4 +36,5 @@ public class Police implements CommandExecutor {
 
         return true;
     }
+
 }
